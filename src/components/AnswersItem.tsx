@@ -1,18 +1,22 @@
 // Components don't need to be separeted into individual files
 // Here we have a smaller component that helps compose the AnswersItem below
 
-const answersSet = {
-  swimming: "Swimming",
-  bathing: "Bathing",
-  chatting: "Chatting",
-  noTime: "I don't like to spend time with it"
-};
+import React from "react";
 
-function ItemsList({ list }) {
+const answersSet =["Swimming", "Bathing", "Chatting","I don't like to spend time with it"
+];
+
+
+function ItemsList(props) {
+  const list = props.list
+  const key = props.key
   return (
-    <ul>
-      {list.map((item) => (
-        <li>{answersSet[item]}</li>
+    <ul key = {key}>
+      {list.map((item, i) => (
+        item ? 
+        <li key={i}>{answersSet[i]}</li>
+        :
+        <></>
       ))}
     </ul>
   );
@@ -22,8 +26,9 @@ function ItemsList({ list }) {
 export default function AnswersItem({
   // Feel free to change this props names to what suits you best
   // Rememeber here we're destructuring answerItem, which is the prop name that we've passed
-  answerItem: { username, colour, timeSpent, review }
+  answerItem: { username, colour, timeSpent, review, mail }
 }) {
+  
   return (
     <li>
       <article className="answer">
@@ -32,10 +37,11 @@ export default function AnswersItem({
           <em>How do you rate your rubber duck colour?</em>
           <span className="answer__line">{colour}</span>
         </p>
-        <p>
+        <span>
           <em>How do you like to spend time with your rubber duck?</em>
-          <ItemsList list={timeSpent} />
-        </p>
+          <ItemsList list={timeSpent}
+                    key ={username} />
+        </span>
         <p>
           <em>What else have you got to say about your rubber duck?</em>
           <span className="answer__line">{review}</span>
