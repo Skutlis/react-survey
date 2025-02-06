@@ -10,6 +10,7 @@ const answersSet =["Swimming", "Bathing", "Chatting","I don't like to spend time
 function ItemsList(props) {
   const list = props.list
   const key = props.key
+  
   return (
     <ul key = {key}>
       {list.map((item, i) => (
@@ -23,15 +24,20 @@ function ItemsList(props) {
 }
 
 // This is the main component being exported from this file
-export default function AnswersItem({
+export default function AnswersItem(
   // Feel free to change this props names to what suits you best
   // Rememeber here we're destructuring answerItem, which is the prop name that we've passed
-  answerItem: { username, colour, timeSpent, review, mail }
-}) {
+  //answerItem: { username, colour, timeSpent, review, mail }
+  props
+) {
+  const { username, colour, timeSpent, review, mail } = props.answerItem
+  const id = props.id
+  const editAnswer = props.editAnswer
   
   return (
     <li>
       <article className="answer">
+        <button type = "button" onClick={() => editAnswer(id)}> Edit </button>
         <h3>{username || "Anon"} said:</h3>
         <p>
           <em>How do you rate your rubber duck colour?</em>

@@ -10,6 +10,7 @@ function Survey(props) {
 
   
   const [open, setOpen] = useState(false); //Ignore this state
+  const [indexOfCurrentForm, setIndexOfCurrentForm] = useState(0)
 
   const [answersList, setAnswersList] = useState([])
   const [answer, setAnswer] = useState({
@@ -37,7 +38,16 @@ function Survey(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const answers = answersList
-    answers.push(answer)
+    if (indexOfCurrentForm >= answersList.length)
+    {
+      answers.push(answer) // Add if we are creating a new form
+    }
+    else
+    {
+      answers[indexOfCurrentForm] = answer //Update if we are editing a form
+    }
+    setIndexOfCurrentForm(answers.length)  // Update the index such that we go to "create mode" once again
+    
     setAnswersList(answers)
     setAnswer({
       username: "", 
@@ -47,6 +57,16 @@ function Survey(props) {
       email: ""
    })
   }
+
+  const editAnswer = (index) => {
+    console.log(index)
+    if (index < answersList.length)
+    {
+      setAnswer(answersList[index])
+      setIndexOfCurrentForm(index)
+    }
+    
+  }
   console.log(answer)
 
   return (
@@ -54,7 +74,8 @@ function Survey(props) {
       <section className={`survey__list ${open ? "open" : ""}`}>
         <h2>Answers list</h2>
         {/* answers should go here */
-          <AnswersList answersList={answersList} />
+          <AnswersList answersList={answersList}
+          editAnswer={editAnswer} />
         }
       </section>
       <section className="survey__form">{/* a form should be here */
