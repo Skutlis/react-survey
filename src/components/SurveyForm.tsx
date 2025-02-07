@@ -1,6 +1,10 @@
 
 
 import React, { useState } from 'react';
+import RadioButton from './radioInput';
+import CheckBox from './checkBox';
+import TextBox from './textBox';
+import TextInput from './textInput';
 
 
 interface SurveryFormProps  {
@@ -27,111 +31,68 @@ export default function SurveyForm(props) {
             <div className="form__group-radio">
                 <h3>How do you rate you rubber duck color?</h3>
                 <div className = "form__radio-group">
-                <label>
-                    
-                    <input type="radio" 
-                        name="colour"
-                        value = {1}
-                        onChange={(e) => handleChange(e)}
-                        checked={answer.colour === "1"}
-                        >
-                    </input>
-                    1
-                </label>
-                <label>
-                    
-                    <input type="radio" 
-                        name="colour"
-                        value = {2}
-                        onChange={(e) => handleChange(e)}
-                        checked={answer.colour === "2"}>
-                    </input>
-                    2
-                </label>
-                <label>
-                    
-                    <input type="radio" 
-                        name="colour"
-                        value = {3}
-                        onChange={(e) => handleChange(e)}
-                        checked={answer.colour === "3"}>
-                    </input>
-                    3
-                </label>
-                <label>
-                    
-                    <input type="radio" 
-                        name="colour"
-                        value = {4}
-                        onChange={(e) => handleChange(e)}
-                        checked={answer.colour === "4"}>
-                    </input>
-                    4
-                </label>
+                <RadioButton checked = {answer.colour === "1"}
+                            handleChange = {handleChange}
+                            body = "1"
+                            value = {1}
+                            name = "colour" />
+                <RadioButton checked = {answer.colour === "2"}
+                            handleChange = {handleChange}
+                            body = "2"
+                            value = {2}
+                            name = "colour" />
+                <RadioButton checked = {answer.colour === "3"}
+                            handleChange = {handleChange}
+                            body = "3"
+                            value = {3}
+                            name = "colour" />
+                <RadioButton checked = {answer.colour === "4"}
+                            handleChange = {handleChange}
+                            body = "4"
+                            value = {4}
+                            name = "colour" />
                 </div>
             </div>
             <div className="form__group">
                 <h3>How do you like to spend time with your rubber duck?</h3>
-                <label>
-                    
-                    <input type="checkbox" 
-                        name="timeSpent"
-                        value = {0}
-                        onChange={(e) => handleCheckboxes(e)}
-                        checked={answer.timeSpent[0]}
-                        >
-                        
-                        
-                    </input>
-                    Swimming
-                </label>
-                <label>
-                    
-                    <input type="checkbox" 
-                        name="timeSpent"
-                        value = {1}
-                        onChange={(e) => handleCheckboxes(e)}
-                        checked={answer.timeSpent[1]}>
-                    </input>
-                    Bathing
-                </label>
-                <label>
-                    
-                    <input type="checkbox" 
-                        name="timeSpent"
-                        value = {2}
-                        onChange={(e) => handleCheckboxes(e)}
-                        checked={answer.timeSpent[2]}>
-                    </input>
-                    Chatting
-                </label>
-                <label>
-                    
-                    <input type="checkbox" 
-                        name="timeSpent"
-                        value = {3}
-                        onChange={(e) => handleCheckboxes(e)}
-                        checked={answer.timeSpent[3]}>
-                    </input>
-                    I don't like to spend time with it
-                </label>
+                <CheckBox value={0}
+                            name="timeSpent"
+                            onChange={handleCheckboxes}
+                            checked={answer.timeSpent[0]} 
+                            body="Swimming" />
+                            
+                <CheckBox value={1}
+                            name="timeSpent"
+                            onChange={handleCheckboxes}
+                            checked={answer.timeSpent[1]}
+                            body="bathing" />
+                <CheckBox value={2}
+                            name="timeSpent"
+                            onChange={handleCheckboxes}
+                            checked={answer.timeSpent[2]}
+                            body="Chatting" />
+                <CheckBox value={3}
+                            name="timeSpent"
+                            onChange={handleCheckboxes}
+                            checked={answer.timeSpent[3]}
+                            body="I don't like to spend time with it" />
             </div>
-            <label>
-                What else have you got to say about your rubber duck?<textarea name="review" cols={30} rows={10} value = {answer.review} onChange={(e) => handleChange(e)} />
-            </label>
-            <label
-                >Put your name here (if you feel like it):<input
-                type="text"
-                name="username"
-                value={answer.username}
-                onChange={e => handleChange(e)} />
-                </label>
-            <label
-                >Leave us your email pretty please??<input
-                type="email"
-                name="email"
-                value={answer.email}
-                onChange={e => handleChange(e)} /></label>
+            <TextBox label = "What else have you got to say about your rubber duck?"
+                    name="review"
+                    cols={30}
+                    rows={10}
+                    value={answer.review}
+                    handleChange={handleChange} />
+            <TextInput label = "Put your name here (if you feel like it):"
+                        type="text"
+                        name = "username"
+                        value={answer.username}
+                        handleChange={handleChange} />
+            <TextInput label="Leave us your email pretty please??"
+                        type="email"
+                        name="email"
+                        value={answer.email}
+                        handleChange={handleChange} />
             <input className="form__submit" type="submit" value="Submit Survey!" />
         </form>
     );
